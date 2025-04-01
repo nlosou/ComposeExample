@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ComposeExample</string>
+    <string name="title_activity_layout_slide">layoutSlide</string>
 </resources>
