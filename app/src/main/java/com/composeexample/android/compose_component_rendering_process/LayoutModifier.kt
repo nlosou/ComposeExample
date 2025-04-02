@@ -8,13 +8,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.FirstBaseline
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.semantics.SemanticsProperties.Text
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.composeexample.android.example.layoutSlide
 import com.composeexample.android.ui.theme.ComposeExampleTheme
 
+
+
+/*
+
+对比一下 Compose 中的自定义 Layout
+的两种方式，一种是针对某个组件进行的功能扩展，类似于
+ View 体系中对某个已有的 View 或直接继承 View 进行的自定义
+ ，它其实是自定义一个 Modifier 方法；另一种是针对某个容器组件的
+ 自定义，类似于 View 体系中对某个已有的 ViewGroup 或直接继承 View
+ Group 进行自定义，它其实就是一个 Layout 组件，是布局的主要核心组件。接下
+ 来让我们看看更加复杂的自定义 Layout。
+ */
+
+
+//自定义Modifier方法
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.firstBaselineToTop(
     firstBaseLineToTop:Dp
@@ -28,6 +45,36 @@ fun Modifier.firstBaselineToTop(
         placeable.placeRelative(0,plceableY)
     }
 }
+
+@Composable
+fun MyOwnColumn(
+    modifier: Modifier,
+    content:@Composable  () ->Unit
+){
+    Layout(
+        modifier = modifier,
+        content = content
+    ){ measurables, constraints ->
+        // 对 children 进行测量和放置
+        val placeables = measurables.map { measurable ->
+            // 测量每个 child 的尺寸
+            measurable.measure(constraints)
+        }
+        var yPosition = 0  // 记录下一个元素竖直方向上的位置
+        var xPosition= 0
+        layout(constraints.maxWidth, constraints.maxHeight) {
+            // 摆放 children
+            placeables.forEach { placeable ->
+                placeable.placeRelative(xPosition, yPosition)
+                yPosition += placeable.height
+                xPosition +=placeable.width
+
+            }
+        }
+    }
+}
+
+
 
 @Preview
 @Composable
@@ -43,3 +90,18 @@ fun Text_2(){
         Text("Noser",Modifier.padding(top = 24.dp))
     }
 }
+@Preview
+@Composable
+fun Text_23(){
+    ComposeExampleTheme{
+
+        MyOwnColumn(Modifier) {
+            Text("282882")
+            Text("282882")
+            Text("282882")
+        }
+    }
+}
+
+
+
