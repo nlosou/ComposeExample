@@ -61,7 +61,7 @@ private fun WeBottomBar(select:Int) {
 //独立的函数才可以加状态
 @Composable
 private fun TabItem( icon:ImageVector,title:String,modifier: Modifier,tint:Color) {
-    Column(Modifier.padding(vertical = 8.dp, horizontal = 10.dp),
+    Column(Modifier.padding(vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally)
     {
         Icon(imageVector = icon, contentDescription = title,Modifier.size(24.dp),tint=tint)
