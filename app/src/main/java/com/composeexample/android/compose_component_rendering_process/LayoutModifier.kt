@@ -1,18 +1,29 @@
 package com.composeexample.android.compose_component_rendering_process
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.LayoutScopeMarker
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.FirstBaseline
+import androidx.compose.ui.layout.IntrinsicMeasurable
+import androidx.compose.ui.layout.IntrinsicMeasureScope
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.Measurable
+import androidx.compose.ui.layout.MeasurePolicy
+import androidx.compose.ui.layout.MeasureResult
+import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.semantics.SemanticsProperties.Text
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.composeexample.android.example.layoutSlide
 import com.composeexample.android.ui.theme.ComposeExampleTheme
@@ -46,6 +57,8 @@ fun Modifier.firstBaselineToTop(
     }
 }
 
+
+//自定义组件
 @Composable
 fun MyOwnColumn(
     modifier: Modifier,
@@ -66,12 +79,43 @@ fun MyOwnColumn(
             // 摆放 children
             placeables.forEach { placeable ->
                 placeable.placeRelative(xPosition, yPosition)
-                yPosition += placeable.height
+                //yPosition += placeable.height
                 xPosition +=placeable.width
 
             }
         }
     }
+}
+
+@Composable
+fun IntrinsicRow(
+    modifier: Modifier,
+    content: @Composable ()-> Unit
+){
+    Layout(
+        content=content,
+        modifier=Modifier,
+        measurePolicy = object : MeasurePolicy {
+            override fun MeasureScope.measure(
+                measurables: List<Measurable>,
+                constraints: Constraints
+            ): MeasureResult {
+                TODO("Not yet implemented")
+            }
+
+            override fun IntrinsicMeasureScope.minIntrinsicHeight(
+                measurables: List<IntrinsicMeasurable>,
+                width: Int
+            ): Int {
+                var maxHeight=0
+                measurables.forEach {
+                    maxHeight=it.minIntrinsicHeight(width).coerceAtLeast(maxHeight)
+                }
+
+                return maxHeight
+            }
+        }
+    )
 }
 
 
@@ -80,7 +124,12 @@ fun MyOwnColumn(
 @Composable
 fun Text_(){
     ComposeExampleTheme{
-        Text("Noser",Modifier.firstBaselineToTop(24.dp))
+        IntrinsicRow(modifier = Modifier.fillMaxSize().height(IntrinsicSize.Min))
+        {
+            Text(text = "left")
+
+
+        }
     }
 }
 @Preview
@@ -94,12 +143,12 @@ fun Text_2(){
 @Composable
 fun Text_23(){
     ComposeExampleTheme{
-
-        MyOwnColumn(Modifier) {
+        MyOwnColumn(Modifier){
             Text("282882")
             Text("282882")
             Text("282882")
         }
+
     }
 }
 
