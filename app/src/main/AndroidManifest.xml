@@ -13,6 +13,11 @@
         android:theme="@style/Theme.ComposeExample"
         tools:targetApi="31">
         <activity
+            android:name=".composechat.chat"
+            android:exported="false"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/Theme.ComposeExample" />
+        <activity
             android:name=".example.layoutSlide"
             android:exported="false"
             android:label="@string/title_activity_layout_slide"
