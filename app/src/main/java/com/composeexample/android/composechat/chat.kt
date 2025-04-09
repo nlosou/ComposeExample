@@ -1,21 +1,34 @@
 package com.composeexample.android.composechat
 
+import android.graphics.Color.rgb
 import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,55 +43,41 @@ import com.composeexample.android.myiconpack.Compass
 import com.composeexample.android.myiconpack.MySpectrum
 import com.composeexample.android.myiconpack.PhonebookContacts
 
+
+
+object theme{
+
+}
 class chat : ComponentActivity() {
+
+    @OptIn(ExperimentalFoundationApi::class)
+
+    val viewModel : WeViewModel by viewModels()
+    @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ComposeExampleTheme {
+                val pagerState = rememberPagerState(0){4}
                 Column {
-                    //WeBottomBar()
+                    HorizontalPager(pagerState) {
+                        page->
+                        when(page){
+                            0-> chatList()
+                            1->Box(Modifier.fillMaxSize()){}
+                            2->Box(Modifier.fillMaxSize()){}
+                            3->Box(Modifier.fillMaxSize()){}
+                        }
+                    }
+                    WeBottomBar(viewModel.seletedTab){
+                        viewModel.seletedTab=it
+                    }
                 }
             }
         }
     }
 
 
-
-
 }
 
-//如果某个见面是动态的就要抽出，
-@Composable
-private fun WeBottomBar(select:Int) {
-    Row(Modifier.fillMaxWidth()) {
-        TabItem(if(select==0) MyIconPack.Chat else MyIconPack.Chat, "聊天",Modifier.weight(1f),if (select==0) Color.Green else Color.Black)
-        TabItem(if(select==1) MyIconPack.PhonebookContacts else MyIconPack.PhonebookContacts, "通讯录",Modifier.weight(1f),if (select==1) Color.Green else Color.Black)
-        TabItem(if(select==2) MyIconPack.Compass else MyIconPack.Compass, "发现",Modifier.weight(1f),if (select==2) Color.Green else Color.Black)
-        TabItem(if(select==3) MyIconPack.MySpectrum else MyIconPack.MySpectrum, "我的",Modifier.weight(1f),if (select==3) Color.Green else Color.Black)
-    }
-}
-//独立的函数才可以加状态
-@Composable
-private fun TabItem( icon:ImageVector,title:String,modifier: Modifier,tint:Color) {
-    Column(Modifier.padding(vertical = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally)
-    {
-        Icon(imageVector = icon, contentDescription = title,Modifier.size(24.dp),tint=tint)
-        Text(title, fontSize = 11.sp, color =tint)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun WeBotton() {
-    WeBottomBar(0)
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview3() {
-    ComposeExampleTheme {
-        //TabItem(MyIconPack.Chat,"聊天",Modifier.weight(1f))
-    }
-}
