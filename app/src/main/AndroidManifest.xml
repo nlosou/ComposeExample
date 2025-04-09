@@ -14,7 +14,7 @@
         tools:targetApi="31">
         <activity
             android:name=".composechat.chat"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_chat"
             android:theme="@style/Theme.ComposeExample" />
         <activity

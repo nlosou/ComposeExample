@@ -45,12 +45,8 @@ import com.composeexample.android.myiconpack.PhonebookContacts
 
 
 
-object theme{
 
-}
 class chat : ComponentActivity() {
-
-    @OptIn(ExperimentalFoundationApi::class)
 
     val viewModel : WeViewModel by viewModels()
     @OptIn(ExperimentalFoundationApi::class)
@@ -64,20 +60,22 @@ class chat : ComponentActivity() {
                     HorizontalPager(pagerState) {
                         page->
                         when(page){
-                            0-> chatList()
+                            0-> chatList(viewModel.chats)
                             1->Box(Modifier.fillMaxSize()){}
                             2->Box(Modifier.fillMaxSize()){}
                             3->Box(Modifier.fillMaxSize()){}
                         }
                     }
+                    /*
                     WeBottomBar(viewModel.seletedTab){
                         viewModel.seletedTab=it
                     }
+
+                     */
+
                 }
             }
         }
     }
-
-
 }
 
