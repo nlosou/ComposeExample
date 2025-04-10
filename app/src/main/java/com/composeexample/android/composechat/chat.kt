@@ -21,10 +21,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -41,17 +44,15 @@ import androidx.compose.ui.unit.sp
 import com.composeexample.android.MyIconPack
 import com.composeexample.android.composechat.ui.theme.ComposeExampleTheme
 import com.composeexample.android.myiconpack.Chat
+import com.composeexample.android.myiconpack.ColorPalette
 import com.composeexample.android.myiconpack.Compass
 import com.composeexample.android.myiconpack.MySpectrum
 import com.composeexample.android.myiconpack.PhonebookContacts
 
-
-
-
 class chat : ComponentActivity() {
 
     val viewModel : WeViewModel by viewModels()
-    @OptIn(ExperimentalFoundationApi::class)
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -60,34 +61,29 @@ class chat : ComponentActivity() {
             ComposeExampleTheme {
                 // 使用 Scaffold
                 Scaffold(
-                    topBar = { /* 如果需要顶部栏，可以在这里添加 */ },
-                    content = { padding ->
-                        val pagerState = rememberPagerState(0) { 4 }
-                        Row {
-                            Column(modifier = Modifier.padding(padding)) { // 添加 padding
-                                HorizontalPager(pagerState,Modifier.weight(1f)) { page ->
-                                    when (page) {
-                                        0 -> chatList(viewModel.chats)
-                                        1 -> Box(Modifier.fillMaxSize()) {}
-                                        2 -> Box(Modifier.fillMaxSize()) {}
-                                        3 -> Box(Modifier.fillMaxSize()) {}
+                    topBar = {
+                        TopAppBar(
+                            title = { Text("消息") },
+                            actions = {
+                                IconButton(
+                                    onClick = {
                                     }
-                                }
-                                WeBottomBar(viewModel.seletedTab){
-                                    viewModel.seletedTab=it
+                                ) {
+                                    Icon(MyIconPack.ColorPalette,"")
                                 }
                             }
-
-                        }
-
+                        )
                     },
-                    bottomBar = {
-
+                    content = { padding ->
+                        Box(Modifier.padding(padding)){
+                            Home(viewModel)
+                            ChatSituation()
+                        }
                     }
                 )
-
             }
         }
     }
 }
+
 
