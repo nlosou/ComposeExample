@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -33,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,26 +56,36 @@ class chat : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
             ComposeExampleTheme {
-                val pagerState = rememberPagerState(0){4}
-                Column {
-                    HorizontalPager(pagerState) {
-                        page->
-                        when(page){
-                            0-> chatList(viewModel.chats)
-                            1->Box(Modifier.fillMaxSize()){}
-                            2->Box(Modifier.fillMaxSize()){}
-                            3->Box(Modifier.fillMaxSize()){}
+                // 使用 Scaffold
+                Scaffold(
+                    topBar = { /* 如果需要顶部栏，可以在这里添加 */ },
+                    content = { padding ->
+                        val pagerState = rememberPagerState(0) { 4 }
+                        Row {
+                            Column(modifier = Modifier.padding(padding)) { // 添加 padding
+                                HorizontalPager(pagerState,Modifier.weight(1f)) { page ->
+                                    when (page) {
+                                        0 -> chatList(viewModel.chats)
+                                        1 -> Box(Modifier.fillMaxSize()) {}
+                                        2 -> Box(Modifier.fillMaxSize()) {}
+                                        3 -> Box(Modifier.fillMaxSize()) {}
+                                    }
+                                }
+                                WeBottomBar(viewModel.seletedTab){
+                                    viewModel.seletedTab=it
+                                }
+                            }
+
                         }
-                    }
-                    /*
-                    WeBottomBar(viewModel.seletedTab){
-                        viewModel.seletedTab=it
-                    }
 
-                     */
+                    },
+                    bottomBar = {
 
-                }
+                    }
+                )
+
             }
         }
     }

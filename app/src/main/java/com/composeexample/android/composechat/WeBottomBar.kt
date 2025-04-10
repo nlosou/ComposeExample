@@ -60,7 +60,7 @@ import androidx.compose.ui.layout.onSizeChanged
     Column(modifier.padding(vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally)
     {
-        Icon(imageVector = icon, contentDescription = title, Modifier.size(24.dp),tint=tint)
+        Icon(imageVector = icon, contentDescription = title, Modifier.unRead(true).size(24.dp),tint=tint)
         Text(title, fontSize = 11.sp, color =tint)
     }
 }

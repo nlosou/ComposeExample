@@ -30,7 +30,7 @@ class WeViewModel: ViewModel() {
                             MyIconPack.Chat
                         ),
                         text = "锄禾日当午",
-                        time = "14:20"
+                        time = "14:20",
                     ),
                     Msg(
                         User.Me,
@@ -139,11 +139,7 @@ class WeViewModel: ViewModel() {
                         text = "床前明月光，疑是地上霜。",
                         time = "14:20"
                     ),
-                    Msg(
-                        User.Me,
-                        text = "吃饭吧？",
-                        time = "14:20"
-                    )
+
                 )
             )
 
