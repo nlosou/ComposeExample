@@ -16,7 +16,7 @@ fun Home(viewModel: WeViewModel) {
     Column() { // 添加 padding
         HorizontalPager(pagerState, Modifier.weight(1f)) { page ->
             when (page) {
-                0 -> chatList(viewModel.chats)
+                0 -> chatList(viewModel.chats,viewModel)
                 1 -> Box(Modifier.fillMaxSize()) {}
                 2 -> Box(Modifier.fillMaxSize()) {}
                 3 -> Box(Modifier.fillMaxSize()) {}

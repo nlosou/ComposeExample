@@ -1,6 +1,8 @@
 package com.composeexample.android.composechat
 
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,12 +32,12 @@ import androidx.compose.ui.unit.sp
 import com.composeexample.android.composechat.data.Chat
 
 @Composable
-fun chatList(chats:List<Chat>) {
+fun chatList(chats:List<Chat>,viewModel: WeViewModel) {
     Box(Modifier.background(Color(0xFFE8EBEA)).fillMaxSize()){
         LazyColumn(Modifier.background(Color(0xFFFFFFFFF))) {
             itemsIndexed(chats){
                     index,chat->
-                chatListItem(chat)
+                chatListItem(chat,viewModel)
                 if(index<chats.lastIndex){
                     HorizontalDivider()
                 }
@@ -45,8 +47,12 @@ fun chatList(chats:List<Chat>) {
 }
 
 @Composable
-private fun chatListItem(chat: Chat) {
-    Row(Modifier.fillMaxWidth()) {
+private fun chatListItem(chat: Chat,viewModel: WeViewModel) {
+    Row(Modifier.fillMaxWidth()
+        .clickable {
+            viewModel.startChat(viewModel, chat)
+        }
+    ) {
         Icon(
             chat.firend.avatar, chat.firend.name,
             Modifier
@@ -71,7 +77,6 @@ private fun chatListItem(chat: Chat) {
         )
     }
 }
-
 
 fun Modifier.unRead(show:Boolean):Modifier=this.drawWithContent{
     drawContent()
