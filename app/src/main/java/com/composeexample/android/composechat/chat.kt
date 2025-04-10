@@ -51,13 +51,12 @@ import com.composeexample.android.myiconpack.PhonebookContacts
 
 class chat : ComponentActivity() {
 
-    val viewModel : WeViewModel by viewModels()
+    private val viewModel : WeViewModel by viewModels()
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             ComposeExampleTheme {
                 // 使用 Scaffold
                 Scaffold(
@@ -82,6 +81,13 @@ class chat : ComponentActivity() {
                     }
                 )
             }
+        }
+    }
+
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    override fun onBackPressed() {
+        if(!viewModel.endChat()){
+            super.onBackPressed()
         }
     }
 }

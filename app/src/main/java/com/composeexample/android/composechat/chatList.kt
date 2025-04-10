@@ -50,7 +50,7 @@ fun chatList(chats:List<Chat>,viewModel: WeViewModel) {
 private fun chatListItem(chat: Chat,viewModel: WeViewModel) {
     Row(Modifier.fillMaxWidth()
         .clickable {
-            viewModel.startChat(viewModel, chat)
+            viewModel.startChat( chat)
         }
     ) {
         Icon(

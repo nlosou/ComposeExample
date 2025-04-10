@@ -1,5 +1,6 @@
 package com.composeexample.android.composechat
 
+import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -149,10 +150,16 @@ class WeViewModel: ViewModel() {
     var chatting by mutableStateOf(false)
 
     fun startChat(
-        viewModel: WeViewModel,
         chat: Chat
     ) {
-        viewModel.chatting = true
-        viewModel.currentChat = chat
+        chatting = true
+        currentChat = chat
+    }
+     fun endChat() :Boolean{
+        if(chatting){
+            chatting=false
+            return true
+        }
+         return false
     }
 }
