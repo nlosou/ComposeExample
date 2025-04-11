@@ -76,7 +76,7 @@ class chat : ComponentActivity() {
                     content = { padding ->
                         Box(Modifier.padding(padding)){
                             Home(viewModel)
-                            ChatSituation()
+                            ChatSituation(viewModel)
                         }
                     }
                 )

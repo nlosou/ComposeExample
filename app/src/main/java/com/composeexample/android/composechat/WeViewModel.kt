@@ -15,6 +15,7 @@ import com.composeexample.android.myiconpack.Chat
 
 class WeViewModel: ViewModel() {
     var seletedTab by mutableIntStateOf(0)
+    var iphoneWidth by mutableStateOf(0)
     var chats by mutableStateOf(
         listOf(
             Chat(
