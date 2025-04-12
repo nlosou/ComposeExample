@@ -3,6 +3,7 @@ package com.composeexample.android
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.composeexample.android.myiconpack.Alarm
 import com.composeexample.android.myiconpack.ArrowDown
+import com.composeexample.android.myiconpack.Bomb
 import com.composeexample.android.myiconpack.Car
 import com.composeexample.android.myiconpack.Chat
 import com.composeexample.android.myiconpack.CheckCircle
@@ -46,9 +47,9 @@ public val MyIconPack.AllIcons: ____KtList<ImageVector>
     if (__AllIcons != null) {
       return __AllIcons!!
     }
-    __AllIcons= listOf(Alarm, ArrowDown, Car, Chat, CheckCircle, Clothes, ColorPalette, Compass,
-        Cosmetic, Drugs, Image, Leaf, LetterT, ListSelect, Location, MapMarked, MapPoint, Moon,
-        MySpectrum, NavigationPointer, PencilLine, PhonebookContacts, Point, Radioupnp, RedoLine,
-        SnowLine, Sport, TShirt, Umbrella, UndoLine, Water, WeatherSunny, Wind, Wind2)
+    __AllIcons= listOf(Alarm, ArrowDown, Bomb, Car, Chat, CheckCircle, Clothes, ColorPalette,
+        Compass, Cosmetic, Drugs, Image, Leaf, LetterT, ListSelect, Location, MapMarked, MapPoint,
+        Moon, MySpectrum, NavigationPointer, PencilLine, PhonebookContacts, Point, Radioupnp,
+        RedoLine, SnowLine, Sport, TShirt, Umbrella, UndoLine, Water, WeatherSunny, Wind, Wind2)
     return __AllIcons!!
   }
