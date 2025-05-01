@@ -1,4 +1,4 @@
-package com.composeexample.android.composechat
+package com.android.kcchat.ui.composeChat
 
 import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.compose.runtime.getValue

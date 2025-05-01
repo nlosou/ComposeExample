@@ -1,4 +1,4 @@
-package com.composeexample.android.composechat
+package com.android.kcchat.ui.composeChat
 
 import android.graphics.Color.rgb
 import android.graphics.drawable.Animatable

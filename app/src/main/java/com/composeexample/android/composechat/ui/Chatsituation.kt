@@ -1,4 +1,4 @@
-package com.composeexample.android.composechat
+package com.android.kcchat.ui.composeChat
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState

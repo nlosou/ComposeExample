@@ -1,4 +1,4 @@
-package com.composeexample.android.composechat
+package com.android.kcchat.ui.composeChat
 
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
