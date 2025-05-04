@@ -25,6 +25,7 @@ import com.composeexample.android.myiconpack.Compass
 import com.composeexample.android.myiconpack.MySpectrum
 import com.composeexample.android.myiconpack.PhonebookContacts
 import androidx.activity.viewModels
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -83,4 +84,9 @@ fun GreetingPreview3() {
     ComposeExampleTheme {
         TabItem(MyIconPack.Chat,"聊天", Modifier, tint = MaterialTheme.colorScheme.error)
     }
+}
+
+@Stable
+data class User(var name: String){
+
 }

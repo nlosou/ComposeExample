@@ -14,16 +14,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.composeexample.android.ui.theme.ComposeExampleTheme
 
+
+//传入的参数是不能从内部修改
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,26 +38,24 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ComposeExampleTheme {
-                Column (Modifier.padding(100.dp)){
-                    Text(flag.toString(),Modifier.clickable {
-                        //赋值才能触发setValue
-                        flag++
-                    })
-                    Button(
-                        onClick = {
-
-                            nums2.add(nums2.last()+1)
-
+                var name by remember { mutableStateOf( mutableStateListOf("1","2")) }
+                val processName by remember{//remember的作用是做缓存
+                    derivedStateOf {//负责变得时候触发刷新
+                        name.map {
+                            it.uppercase()
                         }
-                    ) {
-                        Text("加一")
                     }
-                    nums2.forEach {
-                        Text(it.toString())
+
+                }
+                Column {
+                    processName.forEachIndexed { index, s ->
+                        Text(s,Modifier.clickable {
+                           name.add("44")
+                        })
+                    }
                     }
                 }
             }
         }
     }
-}
 
